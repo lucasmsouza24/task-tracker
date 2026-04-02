@@ -1,21 +1,12 @@
 #!/usr/bin/env python3
 
+from taskctl.commands import add, list, remove
 import sys
 
-# commands
-def add(args):
-    print('ADD called with:', args)
-    
-def list_tasks(args):
-    print('LIST called')
-
-def remove(args):
-    print('REMOVE called with args:', args)
-    
 COMMANDS = {
-    'add': add,
-    'list': list_tasks,
-    'remove': remove,
+    'add': add.run,
+    'list': list.run,
+    'remove': remove.run,
 }
 
 # CLI entrypoint
@@ -23,8 +14,9 @@ def main():
     args = sys.argv[1:]
     
     if not args:
-        print('Usage: task-cli <command> [args]')
+        print('Usage: taskctl <command> [args]')
         print('Commands:', ', '.join(COMMANDS.keys()))
+        return
 
     command = args[0]
     command_args = args[1:]
@@ -32,11 +24,11 @@ def main():
     func = COMMANDS.get(command)
     
     if not func:
-        print('Unknow comand: {command}')
+        print(f'Unknow comand: {command}')
         print('Available commands: ', ', '.join(COMMANDS.keys()))
         return
     
     func(command_args)
-    
+
 if __name__ == "__main__":
     main()
