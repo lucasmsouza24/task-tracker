@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 
-from taskctl.commands import add, list, remove
+from taskctl.commands import add, list, remove, mark
 import sys
 
 COMMANDS = {
     'add': add.run,
     'list': list.run,
     'remove': remove.run,
+    'mark': mark.run,
 }
 
 # CLI entrypoint
