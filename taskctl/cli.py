@@ -6,6 +6,7 @@ import sys
 COMMANDS = {
     'add': add.run,
     'list': list.run,
+    'ls': list.run,
     'remove': remove.run,
     'mark': mark.run,
 }
