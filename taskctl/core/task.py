@@ -1,5 +1,6 @@
 from datetime import datetime
 from enum import Enum
+from taskctl.core.json_storage import JSONStorage
 
 class Status(Enum):
     TODO = 'todo'
@@ -8,8 +9,9 @@ class Status(Enum):
 
 class Task:
     
-    def __init__(self, id: int, description: str, status: Status = Status.TODO):
-        self.id = id
+    def __init__(self, description: str, status: Status = Status.TODO):
+        storage = JSONStorage()
+        self.id = storage.get_next_id()
         
         try:
             self.status = Status(status)
