@@ -1,19 +1,24 @@
 from pathlib import Path
 import json
-from taskctl.core.task import Task
 
 class JSONStorage:
     
     def __init__(self, file_name: str = 'data.json'):
         self.path = Path(file_name)
+        self.template_path = 'taskctl/core/data.json.template'
 
     def exists(self) -> bool:
         return self.path.exists()
 
     def create(self) -> None:
         if not self.exists():
+            initial_data = {
+                "next_id": 1,
+                "tasks": []
+            }
+            
             with open(self.path, 'w') as file:
-                file.write('[]')
+                file.write(json.dumps(initial_data, indent=2))
 
     def read(self):
         if not self.exists():
@@ -22,12 +27,15 @@ class JSONStorage:
         with open(self.path, 'r', encoding='utf-8') as file:
             data = json.load(file)
             return data
-    
-    def _write(self, string_values: str):
-        with open(self.path, 'w') as file:
-            file.write(string_values)
 
-    def add_task(self, task: Task) -> None:
-        dict_values = self.read()
-        dict_values.append(task)
-        self._write(json.dumps(dict_values))
+    def add_task(self, task_string) -> None:
+        data = self.read()
+        data['tasks'].append(task_string)
+        data['next_id'] += 1
+        
+        with open(self.path, 'w', encoding='utf-8') as f:
+            json.dump(data, f, indent=2)
+
+    def get_next_id(self):
+        data = self.read()
+        return data['next_id']

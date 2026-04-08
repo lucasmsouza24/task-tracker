@@ -6,7 +6,7 @@ def run(args):
     list_values = storage.read()
     
     print('-' * 40)
-    for task in list_values:
+    for task in list_values['tasks']:
         print(f'id: {task["id"]}')
         print(f'{task["description"]}')
         print(f'status: {task["status"]}')
