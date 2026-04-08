@@ -17,8 +17,9 @@ class Task:
             self.status = Status.TODO
             
         self.description = description
-        self.created_at = datetime.now()
-        self.updated_at = datetime.now()
+        now = datetime.now()
+        self.created_at = now
+        self.updated_at = now
 
     def get_dict(self):
         return {
@@ -28,4 +29,3 @@ class Task:
             'created_at': str(self.created_at),
             'updated_at': str(self.updated_at),
         }
-
