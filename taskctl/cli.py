@@ -8,6 +8,7 @@ COMMANDS = {
     'list': list.run,
     'ls': list.run,
     'remove': remove.run,
+    'rm': remove.run,
     'mark': mark.run,
 }
 

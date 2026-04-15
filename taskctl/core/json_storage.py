@@ -20,6 +20,21 @@ class JSONStorage:
             with open(self.path, 'w') as file:
                 file.write(json.dumps(initial_data, indent=2))
 
+    def remove(self, id) -> None:
+        data = self.read()
+        tasks = data['tasks']
+        
+        new_tasks = [task for task in tasks if task['id'] != id]
+        
+        if len(new_tasks) == len(tasks):
+            return f'Task {id} not found'   
+        
+        data['tasks'] = new_tasks
+        
+        with open(self.path, 'w', encoding='utf-8') as file:
+            json.dump(data, file, indent=2)
+            return f'Success on delete task {id}'
+
     def read(self):
         if not self.exists():
             self.create()
