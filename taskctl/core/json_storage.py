@@ -45,12 +45,18 @@ class JSONStorage:
 
     def add_task(self, task_string) -> None:
         data = self.read()
-        data['tasks'].append(task_string)
-        data['next_id'] += 1
+        tasks = data.get('tasks', [])
+        next_id = self.get_next_id() + 1
+        # data['tasks'].append(task_string)
+        # data['next_id'] += 1
+        tasks.append(task_string)
+        
+        data['next_id'] = next_id
+        data['tasks'] = tasks
         
         with open(self.path, 'w', encoding='utf-8') as f:
             json.dump(data, f, indent=2)
 
     def get_next_id(self):
         data = self.read()
-        return data['next_id']
+        return data.get('next_id', 1)
