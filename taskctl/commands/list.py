@@ -11,9 +11,9 @@ def run(args):
     else:
         print('-' * 40)
         for task in tasks:
-            print(f'id: {task["id"]}')
-            print(f'{task["description"]}')
-            print(f'status: {task["status"]}')
-            print(f'created_at: {task["created_at"]}')
-            print(f'updated_at: {task["updated_at"]}')
+            print(f'id: {task.get("id", "N/A")}')
+            print(f'{task.get("description", "N/A")}')
+            print(f'status: {task.get("status", "N/A")}')
+            print(f'created_at: {task.get("created_at", "N/A")}')
+            print(f'updated_at: {task.get("updated_at", "N/A")}')
             print('-' * 40)
